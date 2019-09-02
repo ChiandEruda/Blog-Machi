@@ -17,6 +17,8 @@ class Config:
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     ADMINS = ['549141930@qq.com']
 
+    CAPTCHA = os.environ.get('CAPTCHA')
+
     POSTS_PER_PAGE = 5
 
     WHOOSH_BASE = os.path.join(basedir, '__msearch__')

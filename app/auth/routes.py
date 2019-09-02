@@ -7,6 +7,7 @@ from flask_login import current_user
 from flask_login import login_user
 from flask_login import logout_user
 from werkzeug.urls import url_parse
+from flask import current_app
 
 from app.auth.forms import LoginForm
 from app.auth.forms import RegistrationForm
@@ -18,7 +19,6 @@ from app.email import send_password_reset_email
 from app.auth.forms import ResetPasswordForm
 
 
-captcha = ['XFU83472LSDFYCX7234U7SDF347324']
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -27,7 +27,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         capt = form.captcha.data
-        if capt in captcha:
+        if capt in current_app.config['CAPTCHA']:
             user = User(username=form.username.data, email=form.email.data)
             user.set_password(form.password.data)
             db.session.add(user)
