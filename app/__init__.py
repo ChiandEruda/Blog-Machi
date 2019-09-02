@@ -46,10 +46,6 @@ def create_app(config_class=Config):
     admin.init_app(app)
     babel.init_app(app)
 
-    admin.add_view(MyUserView(models.User, db.session, name='用户管理'))
-    admin.add_view(MyPostView(models.Post, db.session, name='文章管理'))
-    admin.add_view(MyCommentView(models.Comment, db.session, name='评论管理'))
-
     from app.blog import bp as blog_bp
     app.register_blueprint(blog_bp)
 
@@ -100,3 +96,7 @@ def create_app(config_class=Config):
     return app
 
 from app import models
+
+admin.add_view(MyUserView(models.User, db.session, name='用户管理'))
+admin.add_view(MyPostView(models.Post, db.session, name='文章管理'))
+admin.add_view(MyCommentView(models.Comment, db.session, name='评论管理'))
