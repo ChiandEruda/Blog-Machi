@@ -1,0 +1,16 @@
+
+    <ul class="pager">
+
+        <li class="previous{% if not prev_url %} disabled{% endif %}">
+            <a href="{{ prev_url or '#' }}">
+                &larr; 新动态
+            </a>
+        </li>
+
+        <li class="next{% if not next_url %} disabled{% endif %}">
+            <a href="{{ next_url or '#' }}">
+                旧动态 &rarr;
+            </a>
+        </li>
+
+    </ul>

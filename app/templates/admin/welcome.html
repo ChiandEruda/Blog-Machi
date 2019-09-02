@@ -1,0 +1,8 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+<div class="container-color">
+  <h1>欢迎来到后台管理页面</h1>
+  <a href="{{ url_for('blog.index') }}" class="btn btn-primary">返回博客页面</a>
+</div>
+{% endblock %}

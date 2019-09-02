@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+<table>
+    <tr height="10" valign="top"></tr>
+    <tr width="100" valign="top">
+        <td><img style="border-radius: 5px;"  src="{{ user.avatar(100) }}"></td>
+        <td width="20" valign="top"></td>
+        <td>
+            <span style="font-weight: blold;font-size: 32px;">{{ user.username }}</span>
+            {% if user.about_me %}
+            <p>{{ user.about_me }}</p>
+            {% endif %}
+
+            {% if user.last_seen %}
+            <p span style="font-weight: normal;color: #aaa;">在线时间: {{ moment(user.last_seen).format('LLL') }}</p>
+            {% endif %}   
+            
+            <p style="font-weight: normal;">
+                {{ '{} 粉丝'.format(user.fans.count()) }},
+                {{ '{} 关注'.format(user.stars.count()) }}
+            </p>
+         
+
+            {% if not current_user.is_anonymous %}
+                {% if user == current_user %}
+                <p><a class="btn btn-primary" href="{{ url_for('blog.edit_profile') }}">编辑个人信息</a></p>
+                {% elif not current_user.is_following(user) %}
+                <p>
+                    <a href="{{ url_for('blog.follow', username=user.username) }}">关注</a>
+                    <a href="{{ url_for('blog.send_message', recipient=user.username) }}">私信</a>
+                </p>
+                {% else %}
+                <p>
+                <a href="{{ url_for('blog.unfollow', username=user.username) }}">取关</a>
+                <a href="{{ url_for('blog.send_message', recipient=user.username) }}">私信</a>  
+                </p>              
+            {% endif %}
+            {% endif %}
+        </td>
+    </tr>
+</table>
+<hr>
+
+<table>
+    <tr>
+        <td><span class="btn btn-info">标题</span></td>
+        <td width="10"></td>
+        <td>{{ post.title }}</td>
+    </tr>
+    <tr height="20"></tr>
+    <tr valign="top">
+        <td><span class="btn btn-info">内容</span></td>
+        <td width="10"></td>
+        <td>{{ post.body }}</td>
+    </tr>
+</table>
+
+
+<div class="pull-right">评论({{ count }})</div>
+<hr>
+
+{% for post in comments %}
+    {% include '_post.html' %}
+{% endfor %}
+{% if current_user.is_anonymous %}
+<p style="text-align: center;"><a href="{{ url_for('auth.login') }}">登录后评论</a></p>
+{% endif %}
+{% include '_nav.html' %}
+
+<br>
+
+{% if not current_user.is_anonymous %}
+    {% if form %}
+        {{ wtf.quick_form(form) }}      
+    {% endif %}
+{% endif %}
+
+
+<br>
+<br>
+{% endblock %}
+
+

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+    <h1>Hi, {{ current_user.username }}!</h1>
+    {% for post in posts %}
+    {% include '_post.html' %}
+    {% endfor %}
+
+    {% include '_nav.html' %}
+
+
+    <div class="col-md-6">
+            {% if form %}
+            <p>说点什么吧!</p>
+            {{ wtf.quick_form(form) }}
+            {% endif %}
+            <br>
+            <br>
+    </div>
+{% endblock %}

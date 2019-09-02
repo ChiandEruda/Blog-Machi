@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    {% if results %}
+    {% for post in results %}
+        {% include '_post.html' %}
+    {% endfor %}
+    {% else %}
+        <h1>搜索结果不存在</h1>
+    {% endif %}
+{% endblock %}

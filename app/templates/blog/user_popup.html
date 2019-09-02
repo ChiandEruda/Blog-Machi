@@ -1,0 +1,38 @@
+<table class="table">
+    <tr>
+        <td width="64" style="border: 0px;"><img style="border-radius: 5px;" src="{{ user.avatar(64) }}"></td>
+
+        <td style="border: 0px;">
+            <p>
+                <a href="{{ url_for('blog.user', username=user.username) }}">
+                    {{ user.username }}
+                </a>
+            </p>
+
+            <small>
+
+                {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
+                {% if user.last_seen %}
+                <p>{{ '在线时间' }}: 
+                {{ moment(user.last_seen).format('lll') }}</p>
+                {% endif %}
+
+                <p style="font-weight: normal;">{{ '{} 粉丝'.format(user.fans.count()) }},
+                {{ '{} 关注'.format(user.stars.count()) }}</p>
+                
+                {% if user != current_user %}
+                    {% if not current_user.is_following(user) %}
+                    <a href="{{ url_for('blog.follow', username=user.username) }}">
+                        {{ '关注' }}
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('blog.unfollow', username=user.username) }}">
+                        {{ '取消关注' }}
+                    </a>
+                    {% endif %}
+                {% endif %}
+
+            </small>
+        </td>
+    </tr>
+</table>

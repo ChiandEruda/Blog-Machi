@@ -1,0 +1,41 @@
+<table>
+    <tr valign="top">
+
+        <td width="48">
+            <a href="{{ url_for('blog.user', username=post.author.username) }}">
+                <img style="border-radius: 5px;" src="{{ post.author.avatar(48) }}">
+            </a>
+        </td>
+
+        <td width="10" valign="top"></td>
+
+        <td>
+            <div style="height: 3px;"></div>
+           {% if post.title %}
+            <a style="font-size: 16px;" href="{{ url_for('blog.post', post_id=post.id) }}">{{ post.title }}</a>
+            <div style="height: 5px;"></div>
+
+            <span class="{% if current_user.is_authenticated %}user_popup{% endif %}" data-placement="top" style="font-weight: normal;">
+                <a href="{{ url_for('blog.user', username=post.author.username) }}">
+                    {{ post.author.username }} 
+                </a>
+            </span>
+            <span style="color: #aaa;">{{ moment(post.timestamp).format('MM-DD-YYYY, HH:mm:ss') }}</span>
+
+            {% else %}
+
+            <span class="{% if current_user.is_authenticated %}user_popup{% endif %}" data-placement="top">
+                <a href="{{ url_for('blog.user', username=post.author.username) }}">
+                    {{ post.author.username }} 
+                </a>
+            </span>
+
+            <span style="color: #aaa;font-weight: normal;">{{ moment(post.timestamp).format('MM-DD-YYYY, HH:mm:ss') }}</span>
+            <div style="height: 5px;"></div>
+
+            <span style="color: #778087; font-size: 16px;">{{ post.body }}</span>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+<hr>
