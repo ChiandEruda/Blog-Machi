@@ -12,6 +12,7 @@ from flask_moment import Moment
 from flask_msearch import Search
 from flask_admin import Admin
 from flask_babelex import Babel
+from flask_ckeditor import CKEditor
 
 from config import Config
 from app.admin import MyIndexView
@@ -31,6 +32,7 @@ moment = Moment()
 search = Search()
 admin = Admin(name='后台管理', template_mode='bootstrap3', index_view=MyIndexView(template='admin/welcome.html'))
 babel = Babel()
+ckeditor = CKEditor()
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -45,6 +47,7 @@ def create_app(config_class=Config):
     search.init_app(app)
     admin.init_app(app)
     babel.init_app(app)
+    ckeditor.init_app(app)
 
     from app.blog import bp as blog_bp
     app.register_blueprint(blog_bp)

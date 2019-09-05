@@ -25,3 +25,6 @@ class Config:
     WHOOSH_ENABLE = True
 
     BABEL_DEFAULT_LOCALE = 'zh_CN'
+
+    CKEDITOR_SERVE_LOCAL = True
+    CKEDITOR_WIDTH = 500

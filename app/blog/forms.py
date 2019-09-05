@@ -5,6 +5,7 @@ from wtforms import SubmitField
 from wtforms.validators import DataRequired
 from wtforms.validators import Length
 from wtforms.validators import ValidationError
+from flask_ckeditor import CKEditorField
 
 from app.models import User
 
@@ -24,7 +25,7 @@ class EditPostForm(FlaskForm):
 class PostForm(FlaskForm):
     title = StringField(
         '标题', validators=[DataRequired(), Length(min=0, max=20)])
-    body = TextAreaField('正文', validators=[
+    body = CKEditorField('正文', validators=[
         DataRequired(), Length(min=1, max=140)])
     submit = SubmitField('发布')
 
