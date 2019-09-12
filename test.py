@@ -42,21 +42,21 @@ class UserModelCase(unittest.TestCase):
         db.session.add(u1)
         db.session.add(u2)
         db.session.commit()
-        self.assertEqual(u1.stars.all(), [])
+        self.assertEqual(u1.likes.all(), [])
         self.assertEqual(u1.fans.all(), [])
 
         u1.follow(u2)
         db.session.commit()
         self.assertTrue(u1.is_following(u2))
-        self.assertEqual(u1.stars.count(), 1)
-        self.assertEqual(u1.stars.first().username, 'susan')
+        self.assertEqual(u1.likes.count(), 1)
+        self.assertEqual(u1.likes.first().username, 'susan')
         self.assertEqual(u2.fans.count(), 1)
         self.assertEqual(u2.fans.first().username, 'john')
 
         u1.unfollow(u2)
         db.session.commit()
         self.assertFalse(u1.is_following(u2))
-        self.assertEqual(u1.stars.count(), 0)
+        self.assertEqual(u1.likes.count(), 0)
         self.assertEqual(u2.fans.count(), 0)
 
     def test_follow_posts(self):
@@ -87,11 +87,11 @@ class UserModelCase(unittest.TestCase):
         u3.follow(u4)  # mary follows david
         db.session.commit()
 
-        # check the stars posts of each user
-        f1 = u1.stars_and_self_posts().all()
-        f2 = u2.stars_and_self_posts().all()
-        f3 = u3.stars_and_self_posts().all()
-        f4 = u4.stars_and_self_posts().all()
+        # check the likes posts of each user
+        f1 = u1.likes_and_self_posts().all()
+        f2 = u2.likes_and_self_posts().all()
+        f3 = u3.likes_and_self_posts().all()
+        f4 = u4.likes_and_self_posts().all()
         self.assertEqual(f1, [p2, p4, p1])
         self.assertEqual(f2, [p2, p3])
         self.assertEqual(f3, [p3, p4])

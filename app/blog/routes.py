@@ -46,7 +46,7 @@ def index():
     page = request.args.get('page', 1, type=int)
     per = current_app.config['POSTS_PER_PAGE']
 
-    postz = current_user.stars_and_self_posts()
+    postz = current_user.likes_and_self_posts()
     posts = postz.paginate(page, per, False)
 
     next_url = url_for(
