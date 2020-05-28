@@ -1,3 +1,3 @@
 ### Blog-Machi
 
-#### 实例地址：http://www.badtypea.top/explore
+#### 基于 flask 的微型博客
